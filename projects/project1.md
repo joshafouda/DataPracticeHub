@@ -28,7 +28,41 @@ imgs/project1/project1.png
 
 ## Execution du Projet
 
-Pour ce projet, vous pouvez travailler dans l'environnement de developpement Python de votre choix. Nous recommandons l'utilisation de Visual Studio Code (VSC).
+Pour ce projet, vous pouvez travailler dans l'environnement de developpement Python de votre choix. Nous recommandons l'utilisation de Visual Studio Code (VSC). 
+
+Crééz un fichier *reauirements.txt* qui contiendra les packages (et leurs versions) ci-dessous :
+
+matplotlib==3.7.1
+
+matplotlib-inline==0.1.6
+
+numpy==1.25.0
+
+openpyxl==3.1.2
+
+plotly==5.15.0
+
+scikit-learn==1.3.0
+
+scipy==1.11.2
+
+seaborn==0.12.2
+
+streamlit==1.26.0
+
+sweetviz==2.2.1
+
+xlrd==2.0.1
+
+zipp==3.16.2
+
+Pour installer ces packages dans votre environnement, exécutez la commande  ci-dessous :
+
+```bash
+pip install -r requirements.txt
+```
+
+Pour chaque projet, il est conseillé de travailler dans un environnement virtuel afin d'éviter des conflits entre versions de packages.
 
 🖥 **Exploration des donnees et Developpement du Modèle ML**
 
