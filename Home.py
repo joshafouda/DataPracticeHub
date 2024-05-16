@@ -38,10 +38,10 @@ if page == "Accueil":
     st.write("Choisissez un projet ci-dessous pour commencer :")
 
     # Exemples de projets sur la page d'accueil
-    cols = st.columns(3)
+    cols = st.columns(2)
 
     for i, (project_name, project) in enumerate(projects.items()):
-        with cols[i % 3]:
+        with cols[i % 2]:
             st.subheader(project_name)
             st.image(project["image"])
             st.write(project["description"])

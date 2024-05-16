@@ -1,7 +1,7 @@
-# Projet 2
+# Projet : Analyse des élections en Europe2
 
 ## Description
-Description du projet 2 : blabla
+Description du projet 2 : blabla2
 
 ## Image
 https://via.placeholder.com/150

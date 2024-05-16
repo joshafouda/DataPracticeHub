@@ -22,8 +22,17 @@ def load_projects(directory="projects"):
     projects = {}
     for filename in os.listdir(directory):
         if filename.endswith(".md"):
-            project_name = filename[:-3]  # Remove the .md extension
+            #project_name = filename[:-3]  # Remove the .md extension
             sections = read_markdown_file(os.path.join(directory, filename))
+
+            # Parcourir les clés de sections
+            for key in sections.keys():
+                # Vérifier si la clé contient la sous-chaîne "Projet :"
+                if 'Projet :' in key:
+                    # Extraire le titre du projet en supprimant "Projet :" et les espaces avant et après
+                    project_name = key.replace('Projet :', '').strip()
+                    break  # Sortir de la boucle après avoir trouvé le titre du projet
+
             projects[project_name] = {
                 "description": sections["Description"].strip(),
                 "image": sections["Image"].strip(),
