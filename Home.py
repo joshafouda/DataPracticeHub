@@ -1,4 +1,8 @@
 import streamlit as st
+from utils import load_projects
+
+# Charger les projets depuis le répertoire 'projects'
+projects = load_projects()
 
 # Configuration de la page
 st.set_page_config(
@@ -14,49 +18,6 @@ st.title("DataPracticeHub")
 st.sidebar.title("Navigation")
 pages = ["Accueil", "Projets", "À propos"]
 page = st.sidebar.radio("Aller à", pages)
-
-# Définir les projets pour réutilisation
-projects = {
-    "Projet 1": {
-        "description": "Description du projet 1",
-        "image": "https://via.placeholder.com/150",
-        "instructions": [
-            "Étape 1 : Description de l'étape 1",
-            "Étape 2 : Description de l'étape 2",
-            "Étape 3 : Description de l'étape 3",
-        ],
-        "resources": [
-            "[Lien vers une ressource](https://example.com)",
-            "[Lien vers une autre ressource](https://example.com)",
-        ],
-    },
-    "Projet 2": {
-        "description": "Description du projet 2",
-        "image": "https://via.placeholder.com/150",
-        "instructions": [
-            "Étape 1 : Description de l'étape 1",
-            "Étape 2 : Description de l'étape 2",
-            "Étape 3 : Description de l'étape 3",
-        ],
-        "resources": [
-            "[Lien vers une ressource](https://example.com)",
-            "[Lien vers une autre ressource](https://example.com)",
-        ],
-    },
-    "Projet 3": {
-        "description": "Description du projet 3",
-        "image": "https://via.placeholder.com/150",
-        "instructions": [
-            "Étape 1 : Description de l'étape 1",
-            "Étape 2 : Description de l'étape 2",
-            "Étape 3 : Description de l'étape 3",
-        ],
-        "resources": [
-            "[Lien vers une ressource](https://example.com)",
-            "[Lien vers une autre ressource](https://example.com)",
-        ],
-    },
-}
 
 # Fonction pour afficher les détails d'un projet
 def show_project_details(project_name):
