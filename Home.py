@@ -54,7 +54,7 @@ if page == "Accueil":
             if project["image"]:
                 st.image(project["image"])
             st.write(project["description"])
-            if st.button("Détails", key=f"details_{project_name}"):
+            if st.button("Guide", key=f"details_{project_name}"):
                 st.session_state.page = project_name
             if st.button("Solution", key=f"solution_{project_name}"):
                 st.session_state.page = f"solution_{project_name}"
