@@ -38,5 +38,6 @@ def load_projects(directory="projects"):
                 "image": sections["Image"].strip(),
                 "instructions": sections["Instructions"].strip().split('\n'),
                 "resources": sections["Resources"].strip().split('\n'),
+                "execution": sections["Execution du Projet"].strip()
             }
     return projects

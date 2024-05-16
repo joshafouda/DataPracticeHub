@@ -14,3 +14,6 @@ https://via.placeholder.com/150
 ## Resources
 - [Lien vers une ressource](https://example.com)
 - [Lien vers une autre ressource](https://example.com)
+
+## Execution du Projet
+bla4

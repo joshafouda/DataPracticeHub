@@ -31,6 +31,13 @@ def show_project_details(project_name):
     st.write("### Ressources")
     for resource in project["resources"]:
         st.write(resource)
+        
+
+# Fonction pour afficher l'exécution du projet
+def show_project_execution(project_name):
+    project = projects[project_name]
+    st.header(f"**{project_name}** - Exécution du Projet")
+    st.write(project["execution"])
 
 if page == "Accueil":
     st.header("Bienvenue sur DataPracticeHub")
@@ -42,11 +49,14 @@ if page == "Accueil":
 
     for i, (project_name, project) in enumerate(projects.items()):
         with cols[i % 2]:
-            st.subheader(project_name)
-            st.image(project["image"])
+            st.subheader(f"**{project_name}**")
+            if project["image"]:
+                st.image(project["image"])
             st.write(project["description"])
-            if st.button("Détails", key=project_name):
+            if st.button("Détails", key=f"details_{project_name}"):
                 st.session_state.page = project_name
+            if st.button("Solution", key=f"solution_{project_name}"):
+                st.session_state.page = f"solution_{project_name}"
 
 elif page == "Projets":
     st.header("Tous les Projets")
@@ -54,16 +64,25 @@ elif page == "Projets":
 
     # Liste des projets
     for project_name, project in projects.items():
-        st.subheader(project_name)
+        st.subheader(f"**{project_name}**")
+        if project["image"]:
+            st.image(project["image"])
         st.write(project["description"])
-        if st.button("Détails", key=project_name):
+        if st.button("Détails", key=f"details_{project_name}"):
             st.session_state.page = project_name
+        if st.button("Solution", key=f"solution_{project_name}"):
+            st.session_state.page = f"solution_{project_name}"
 
 elif page == "À propos":
     st.header("À propos de DataPracticeHub")
     st.write("DataPracticeHub est conçu pour aider les passionnés de Data Science à apprendre en réalisant des projets pratiques.")
     st.write("Pour toute question, contactez-nous à [votre-email@example.com](mailto:votre-email@example.com)")
 
-# Détail du projet (logique simplifiée)
-if "page" in st.session_state and st.session_state.page in projects:
-    show_project_details(st.session_state.page)
+# Afficher le détail ou l'exécution du projet
+if "page" in st.session_state:
+    if st.session_state.page in projects:
+        show_project_details(st.session_state.page)
+    elif st.session_state.page.startswith("solution_"):
+        project_name = st.session_state.page.replace("solution_", "")
+        if project_name in projects:
+            show_project_execution(project_name)
