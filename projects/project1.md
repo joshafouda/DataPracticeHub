@@ -24,9 +24,11 @@ imgs/project1/project1.png
 
 ## Execution du Projet
 
-Pour ce projet, vous pouvez travailler dans l'environnement de developpement Python de votre choix. Nous recommandons l'utilisation de Visual Studio Code (VSC). 
+Pour ce projet, vous pouvez travailler dans l'environnement de developpement Python de votre choix. Nous recommandons l'utilisation de Visual Studio Code (VSC).
 
-**Exploration des donnees et Experiences Machine Learning dans un notebook (fichier *credit_card_default.ipynb* par exemple)** :
+L'exploration des donnees ainsi que les experiences ML peuvent etre realisees dans un notebook (fichier *credit_card_default.ipynb* par exemple).
+
+- **Importation des Librairies** :
 
 ```python
 # Librairies
@@ -56,48 +58,49 @@ warnings.filterwarnings('ignore')
 from credit_card_default_utils import * # Le contenu du module credit_card_default_utils.py sera devoiler un peu plus bas
 ```
 
-**Introduction** :
+
+- **Introduction** :
 
 L'apprentissage automatique (machine learning) peut être utilisé pour identifier les défauts de crédit, ce qui est crucial pour les institutions financières, les prêteurs et les établissements de crédit afin de minimiser les risques et les pertes associés aux prêts. Voici les étapes générales pour appliquer l'apprentissage automatique à la détection des défauts de crédit :
 
-**1. Collecte de données** :
+1. Collecte de données :
 
 Rassemblez des données historiques sur les prêts, y compris les caractéristiques du demandeur, les antécédents de crédit, les renseignements financiers, les détails du prêt et les résultats (par exemple, si le prêt a été remboursé ou en défaut).
 
-**2. Prétraitement des données** :
+2. Prétraitement des données :
 
 Nettoyez les données en traitant les valeurs manquantes, les valeurs aberrantes et en normalisant les caractéristiques.
 Encodez les variables catégorielles en utilisant des techniques comme l'encodage one-hot ou la représentation vectorielle.
 
-**3. Séparation des données** :
+3. Séparation des données :
 
 Divisez les données en ensembles d'entraînement, de validation et de test pour évaluer la performance du modèle.
 
-**4. Sélection du modèle** :
+4. Sélection du modèle :
 
 Choisissez un algorithme d'apprentissage automatique adapté à la tâche. Les méthodes couramment utilisées pour la détection des défauts de crédit incluent la régression logistique, les arbres de décision, les forêts aléatoires, les machines à vecteurs de support (SVM) et les réseaux de neurones.
 
-**5. Entraînement du modèle** :
+5. Entraînement du modèle :
 
 Entraînez le modèle sur l'ensemble d'entraînement en utilisant les données historiques pour qu'il puisse apprendre à distinguer les emprunteurs à risque de ceux à faible risque.
 
-**6. Évaluation du modèle** :
+6. Évaluation du modèle :
 
 Utilisez l'ensemble de validation pour ajuster les hyperparamètres du modèle et évaluer ses performances à l'aide de mesures telles que la précision, le rappel, la F1-score et la courbe ROC-AUC.
 
-**7. Optimisation du modèle** :
+7. Optimisation du modèle :
 
 Optimisez le modèle en ajustant ses hyperparamètres, en appliquant des techniques de régularisation et en évaluant différentes stratégies de gestion de déséquilibre de classe (s'il y a un déséquilibre significatif entre les défauts de crédit et les remboursements).
 
-**8. Test du modèle** :
+8. Test du modèle :
 
 Évaluez finalement la performance du modèle sur l'ensemble de test pour obtenir une estimation de sa capacité à généraliser sur de nouvelles données.
 
-**9. Déploiement du modèle** :
+9. Déploiement du modèle :
 
 Une fois que le modèle atteint des performances satisfaisantes, il peut être déployé pour automatiser le processus de décision de crédit ou servir de support à la prise de décision humaine.
 
-**10. Surveillance continue** :
+10. Surveillance continue :
 
 Surveillez en continu les performances du modèle après son déploiement, car les comportements des emprunteurs et les conditions économiques peuvent évoluer.
 
@@ -105,7 +108,8 @@ L'application de l'apprentissage automatique pour la détection des défauts de 
 
 À la fin de ce projet, vous serez familiarisé avec une approche réelle d'une tâche d'apprentissage automatique, depuis la collecte et le nettoyage des données jusqu'à la création et le réglage d'un classificateur. Un autre point à retenir est de comprendre l'approche générale des projets d'apprentissage automatique, qui peut ensuite être appliquée à de nombreuses tâches différentes, qu'il s'agisse de prédire le taux de désabonnement ou d'estimer le prix d'un nouveau bien immobilier dans un quartier.
 
-**Données** :
+
+- **Données** :
 
 L’ensemble de données utilisé dans ce chapitre a été collecté dans une banque taïwanaise en octobre 2005. L’étude était motivée par le fait qu’à cette époque, de plus en plus de banques accordaient du crédit (en espèces ou par carte de crédit) à des clients consentants. En outre, de plus en plus de personnes, quelle que soit leur capacité de remboursement, ont accumulé des dettes importantes. Tout cela a conduit à des situations dans lesquelles certaines personnes n’ont pas pu rembourser leurs dettes impayées. En d’autres termes, ils n’ont pas remboursé leurs prêts.
 
@@ -113,7 +117,7 @@ L'objectif de l'étude est d'utiliser certaines informations de base sur les cli
 
 Source des données : https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients
 
-**Importation des donnees** :
+- **Importation des donnees** :
 
 ```python
 # Les fonctions DownloadRawData et ReadRawData sont dans le module credit_card_default_utils.py

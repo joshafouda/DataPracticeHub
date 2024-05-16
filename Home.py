@@ -36,8 +36,9 @@ def show_project_details(project_name):
 # Fonction pour afficher l'exécution du projet
 def show_project_execution(project_name):
     project = projects[project_name]
-    st.header(f"**{project_name}** - Exécution du Projet")
-    st.write(project["execution"])
+    st.header(f"**{project_name}** : Exécution du Projet")
+    #st.write(project["execution"])
+    st.markdown(project["execution"], unsafe_allow_html=True)
 
 if page == "Accueil":
     st.header("Bienvenue sur DataPracticeHub")

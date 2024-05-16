@@ -2,6 +2,9 @@ import os
 import markdown
 from collections import defaultdict
 
+directory = "projects"
+filename = "project1.md"
+
 # Fonction qui prend en argument un fichier .md et retourne le contenu complet de ce fichier .md sous forme de chaîne de caractères
 def read_md_file(file_path):
     """
@@ -39,7 +42,6 @@ def read_markdown_file(file_path):
                 sections[current_section] += line + '\n'
     return sections
 
-
 def extract_execution_section(text):
     # Découpe le texte en lignes
     lines = text.split("\n")
@@ -61,31 +63,15 @@ def extract_execution_section(text):
     # Rejoindre les lignes pour obtenir le contenu complet
     return "\n".join(execution_content)
 
+sections = read_markdown_file(os.path.join(directory, filename))
+#print(type(sections))
+#print('\n')
+#print(sections)
+#print('\n')
 
-# Fonction pour charger tous les projets à partir des fichiers Markdown
-def load_projects(directory="projects"):
-    projects = {}
-    for filename in os.listdir(directory):
-        if filename.endswith(".md"):
-            #project_name = filename[:-3]  # Remove the .md extension
-            sections = read_markdown_file(os.path.join(directory, filename))
+texte = read_md_file(os.path.join(directory, filename))
+#print(type(texte))
+#print('\n')
+#print(texte)
 
-            texte = read_md_file(os.path.join(directory, filename))
-
-            # Parcourir les clés de sections
-            for key in sections.keys():
-                # Vérifier si la clé contient la sous-chaîne "Projet :"
-                if 'Projet :' in key:
-                    # Extraire le titre du projet en supprimant "Projet :" et les espaces avant et après
-                    project_name = key.replace('Projet :', '').strip()
-                    break  # Sortir de la boucle après avoir trouvé le titre du projet
-
-            projects[project_name] = {
-                "description": sections["Description"].strip(),
-                "image": sections["Image"].strip(),
-                "instructions": sections["Instructions"].strip().split('\n'),
-                "resources": sections["Resources"].strip().split('\n'),
-                #"execution": sections["Execution du Projet"].strip()
-                "execution": extract_execution_section(texte)
-            }
-    return projects
+print(extract_execution_section(texte))
