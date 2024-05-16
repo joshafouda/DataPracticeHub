@@ -4,7 +4,7 @@
 Ce projet consiste à analyser les résultats des élections dans différents pays européens1.
 
 ## Image
-https://via.placeholder.com/150
+imgs/project1/project1.png
 
 ## Instructions
 1. Étape 1 : Description de l'étape 1
