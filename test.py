@@ -1,42 +1,28 @@
-import streamlit as st
-import markdown
+import matplotlib.pyplot as plt
+import numpy as np
 
-def extract_execution_section(text):
-    # Découpe le texte en lignes
-    lines = text.split("\n")
-    in_execution_section = False
-    execution_content = []
+# Data for churn visualization
+categories = ['Churn', 'No Churn']
+values = [30, 70]
 
-    # Parcourt les lignes
-    for line in lines:
-        # Vérifie si la ligne débute la section "Execution du Projet"
-        if line.strip() == "## Execution du Projet":
-            in_execution_section = True
-        # Si nous sommes dans la section, ajoute la ligne au contenu
-        elif in_execution_section:
-            # Vérifie si nous sommes sortis de la section
-            if line.strip().startswith("##"):
-                break
-            execution_content.append(line)
+# Colors
+colors = ['#ff6666', '#66b3ff']
 
-    # Rejoindre les lignes pour obtenir le contenu complet
-    return "\n".join(execution_content)
+# Explode
+explode = (0.1, 0)
 
-def main():
-    st.title("Visionneuse de fichier Markdown")
+# Create a pie chart
+fig, ax = plt.subplots()
+ax.pie(values, explode=explode, labels=categories, colors=colors, autopct='%1.1f%%',
+       shadow=True, startangle=140)
 
-    # Sélection du fichier .md
-    uploaded_file = st.file_uploader("Uploader un fichier .md", type=["md"])
+# Equal aspect ratio ensures that pie is drawn as a circle.
+ax.axis('equal')  
+plt.title('Customer Churn Prediction')
 
-    if uploaded_file is not None:
-        # Lecture du contenu du fichier .md
-        text = uploaded_file.read().decode("utf-8")
+# Save the image
+plt.savefig('./imgs/project4/project4.png')
 
-        # Extraction du contenu de la section "Execution du Projet"
-        execution_section_content = extract_execution_section(text)
+# Show the image
+plt.show()
 
-        # Affichage du contenu Markdown de la section "Execution du Projet"
-        st.markdown(execution_section_content, unsafe_allow_html=True)
-
-if __name__ == "__main__":
-    main()
