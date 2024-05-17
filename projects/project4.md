@@ -30,6 +30,20 @@ imgs/project4/project4.png
 
 ## Execution du Projet
 
+Voici la liste des packages utilisés dans ce projet ainsi que leurs versions :
+
+joblib==1.4.2
+
+matplotlib==3.9.0
+
+numpy==1.26.4
+
+pandas==2.2.2
+
+scikit-learn==1.4.2
+
+seaborn==0.13.2
+
 Le désabonnement d'un client se produit lorsque ce dernier décide de cesser d'utiliser les services, le contenu ou les produits d'une entreprise. Il existe de nombreux exemples et cas de désabonnement :
 
 * Annulation d'un service sous contrat ou non ;
