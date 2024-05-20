@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image
+import os
 from utils import load_projects
 
 # Charger les projets depuis le répertoire 'projects'
@@ -13,12 +14,20 @@ st.set_page_config(
 )
 
 # Titre de la page
-#st.title("DataPracticeHub")
+#st.title("DataPracticeHub\nMade by Josué AFOUDA")
 
-# Load and display the logo image
+# Vérifiez l'existence des fichiers
 logo_path = "imgs/logo.png"
-logo_image = Image.open(logo_path)
-st.image(logo_image, use_column_width=True)
+animation_path = "imgs/logo_animation.gif"
+
+# Utilisation de colonnes pour afficher les images côte à côte
+if os.path.exists(logo_path) and os.path.exists(animation_path):
+    col1, col2 = st.columns(2)
+    with col1:
+        logo_image = Image.open(logo_path)
+        st.image(logo_image, use_column_width=True)
+    with col2:
+        st.image(animation_path, use_column_width=True)
 
 # Sidebar pour la navigation
 st.sidebar.title("Navigation")

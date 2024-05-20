@@ -1,22 +1,53 @@
+import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation, PillowWriter
+import os
 
-# Create a figure
-fig, ax = plt.subplots(figsize=(6, 1.5))
+# Ensure the imgs directory exists
+os.makedirs('imgs', exist_ok=True)
 
-# Set the background color
-fig.patch.set_facecolor('black')
-ax.set_facecolor('black')
+# Generate random samples for the scatter plot
+np.random.seed(0)
+x = np.linspace(0, 10, 100)
+y = 3 * x + np.random.randn(100) * 5
 
-# Hide axes
-ax.axis('off')
+# Set up the figure and axis
+fig, ax = plt.subplots(figsize=(6, 2))  # Adjust height to prevent the animation from being too tall
+line, = ax.plot([], [], 'r-', lw=2)
+text = ax.text(0.05, 0.95, '', transform=ax.transAxes, fontsize=12, verticalalignment='top')
 
-# Add the text
-ax.text(0.5, 0.5, "DataPracticeHub\nMade by Josué AFOUDA", 
-        verticalalignment='center', horizontalalignment='center',
-        color='white', fontsize=20, weight='bold', family='monospace')
+# Function to update the scatter plot and regression line
+def update(frame, x, y, line, text):
+    plt.cla()  # Clear the current plot
+    
+    # Scatter plot
+    plt.scatter(x[:frame], y[:frame], color='blue', s=10)
+    
+    if frame > 1:
+        # Fit a linear regression model to the current data
+        b, m = np.polyfit(x[:frame], y[:frame], 1)
+        
+        # Plot regression line
+        plt.plot(x[:frame], b + m * x[:frame], 'r-')
+        
+        # Update the equation text
+        equation = f'y = {m:.2f}x + {b:.2f}'
+        text.set_text(equation)
+        
+    plt.xlim(0, 10)
+    plt.ylim(min(y) - 5, max(y) + 5)
+    #plt.title("DataPracticeHub\nMade by Josué AFOUDA")
+    plt.xlabel("X")
+    plt.ylabel("Y")
+    plt.grid()
 
-# Save the image
-plt.savefig('imgs/DataPracticeHub_logo.png', dpi=300, bbox_inches='tight', pad_inches=0.1)
+# Create the animation
+ani = FuncAnimation(fig, update, frames=len(x), fargs=(x, y, line, text), interval=50, blit=False)
 
-# Show the image
-plt.show()
+# Save the animation as a GIF using PillowWriter
+animation_path = os.path.join('imgs', 'logo_animation.gif')
+ani.save(animation_path, writer=PillowWriter(fps=20))
+
+plt.close(fig)  # Close the figure to prevent it from displaying in the notebook
+
+print(f"Animation saved to {animation_path}")
