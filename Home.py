@@ -14,6 +14,31 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# CSS pour styliser les boutons
+st.markdown("""
+    <style>
+    .stButton button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 10px 24px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .stButton button:hover {
+        background-color: white;
+        color: black;
+        border: 2px solid #4CAF50;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # Titre de la page
 #st.title("DataPracticeHub\nMade by Josué AFOUDA")
 
