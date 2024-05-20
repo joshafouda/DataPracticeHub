@@ -1,4 +1,5 @@
 import streamlit as st
+from st_paywall import add_auth
 from PIL import Image
 import os
 from utils import load_projects
@@ -29,6 +30,11 @@ if os.path.exists(logo_path) and os.path.exists(animation_path):
     with col2:
         st.image(animation_path, use_column_width=True)
 
+st.header("Bienvenue sur DataPracticeHub")
+st.write("DataPracticeHub est un répertoire de projets réels en Data Science pour vous aider à apprendre par la pratique.")
+
+add_auth(required=True)
+
 # Sidebar pour la navigation
 st.sidebar.title("Navigation")
 pages = ["Accueil", "Projets", "À propos"]
@@ -56,8 +62,8 @@ def show_project_execution(project_name):
     st.markdown(project["execution"], unsafe_allow_html=True)
 
 if page == "Accueil":
-    st.header("Bienvenue sur DataPracticeHub")
-    st.write("DataPracticeHub est un répertoire de projets réels en Data Science pour vous aider à apprendre par la pratique.")
+    #st.header("Bienvenue sur DataPracticeHub")
+    #st.write("DataPracticeHub est un répertoire de projets réels en Data Science pour vous aider à apprendre par la pratique.")
     st.write("Choisissez un projet ci-dessous pour commencer :")
 
     # Exemples de projets sur la page d'accueil
