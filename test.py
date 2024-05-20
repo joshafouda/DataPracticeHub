@@ -1,28 +1,22 @@
 import matplotlib.pyplot as plt
-import numpy as np
 
-# Data for churn visualization
-categories = ['Churn', 'No Churn']
-values = [30, 70]
+# Create a figure
+fig, ax = plt.subplots(figsize=(6, 1.5))
 
-# Colors
-colors = ['#ff6666', '#66b3ff']
+# Set the background color
+fig.patch.set_facecolor('black')
+ax.set_facecolor('black')
 
-# Explode
-explode = (0.1, 0)
+# Hide axes
+ax.axis('off')
 
-# Create a pie chart
-fig, ax = plt.subplots()
-ax.pie(values, explode=explode, labels=categories, colors=colors, autopct='%1.1f%%',
-       shadow=True, startangle=140)
-
-# Equal aspect ratio ensures that pie is drawn as a circle.
-ax.axis('equal')  
-plt.title('Customer Churn Prediction')
+# Add the text
+ax.text(0.5, 0.5, "DataPracticeHub\nMade by Josué AFOUDA", 
+        verticalalignment='center', horizontalalignment='center',
+        color='white', fontsize=20, weight='bold', family='monospace')
 
 # Save the image
-plt.savefig('./imgs/project4/project4.png')
+plt.savefig('imgs/DataPracticeHub_logo.png', dpi=300, bbox_inches='tight', pad_inches=0.1)
 
 # Show the image
 plt.show()
-

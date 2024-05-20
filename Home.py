@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 from utils import load_projects
 
 # Charger les projets depuis le répertoire 'projects'
@@ -12,7 +13,12 @@ st.set_page_config(
 )
 
 # Titre de la page
-st.title("DataPracticeHub")
+#st.title("DataPracticeHub")
+
+# Load and display the logo image
+logo_path = "imgs/logo.png"
+logo_image = Image.open(logo_path)
+st.image(logo_image, use_column_width=True)
 
 # Sidebar pour la navigation
 st.sidebar.title("Navigation")
