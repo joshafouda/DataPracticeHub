@@ -37,7 +37,7 @@ st.write("DataPracticeHub est un répertoire de projets réels en Data Science p
 
 # Sidebar pour la navigation
 st.sidebar.title("Navigation")
-pages = ["Accueil", "Projets", "À propos"]
+pages = ["Accueil", "À propos"]
 page = st.sidebar.radio("Aller à", pages)
 
 # Fonction pour afficher les détails d'un projet
@@ -80,25 +80,11 @@ if page == "Accueil":
             if st.button("Solution", key=f"solution_{project_name}"):
                 st.session_state.page = f"solution_{project_name}"
 
-elif page == "Projets":
-    st.header("Tous les Projets")
-    st.write("Liste de tous les projets disponibles :")
-
-    # Liste des projets
-    for project_name, project in projects.items():
-        st.subheader(f"**{project_name}**")
-        if project["image"]:
-            st.image(project["image"])
-        st.write(project["description"])
-        if st.button("Détails", key=f"details_{project_name}"):
-            st.session_state.page = project_name
-        if st.button("Solution", key=f"solution_{project_name}"):
-            st.session_state.page = f"solution_{project_name}"
 
 elif page == "À propos":
     st.header("À propos de DataPracticeHub")
     st.write("DataPracticeHub est conçu pour aider les passionnés de Data Science à apprendre en réalisant des projets pratiques.")
-    st.write("Pour toute question, contactez-nous à [votre-email@example.com](mailto:votre-email@example.com)")
+    st.write("Pour toute question, contactez-nous à [j.a.datatech.consulting@gmail.com](mailto:j.a.datatech.consulting@gmail.com)")
 
 # Afficher le détail ou l'exécution du projet
 if "page" in st.session_state:
