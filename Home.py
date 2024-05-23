@@ -61,9 +61,9 @@ st.write("DataPracticeHub est un répertoire de projets réels en Data Science p
 #add_auth(required=True)
 
 # Sidebar pour la navigation
-st.sidebar.title("Navigation")
+st.title("Navigation")
 pages = ["Accueil", "À propos"]
-page = st.sidebar.radio("Aller à", pages)
+page = st.radio("Aller à", pages, horizontal=True)
 
 # Fonction pour afficher les détails d'un projet
 def show_project_details(project_name):
@@ -87,40 +87,29 @@ def show_project_execution(project_name):
     st.markdown(project["execution"], unsafe_allow_html=True)
 
 if page == "Accueil":
-    #st.header("Bienvenue sur DataPracticeHub")
-    #st.write("DataPracticeHub est un répertoire de projets réels en Data Science pour vous aider à apprendre par la pratique.")
+    # st.header("Bienvenue sur DataPracticeHub")
+    # st.write("DataPracticeHub est un répertoire de projets réels en Data Science pour vous aider à apprendre par la pratique.")
     st.write("Choisissez un projet ci-dessous pour commencer :")
 
     for project_name, project in projects.items():
-        col1, col2 = st.columns([1, 2])  # La première colonne aura 1/3 de la largeur, la deuxième 2/3
-
-        with col1:  # Première colonne
+        with st.expander(f"Projet : {project_name}", expanded=True):
             st.subheader(f"**{project_name}**")
             if project["image"]:
                 st.image(project["image"])
             st.write(project["description"])
 
-        with col2:  # Deuxième colonne
-            with st.expander(f"Détails du projet - {project_name}", expanded=True):
-                if st.button("Guide", key=f"details_{project_name}"):
-                    st.session_state.page = project_name
-                    show_project_details(project_name)
-                
-                if st.button("Solution", key=f"solution_{project_name}"):
-                    st.session_state.page = f"solution_{project_name}"
-                    show_project_execution(project_name)
+            if st.button("Guide", key=f"details_{project_name}"):
+                st.session_state.page = project_name
+                show_project_details(project_name)
+                    
+            if st.button("Solution", key=f"solution_{project_name}"):
+                st.session_state.page = f"solution_{project_name}"
+                show_project_execution(project_name)
+        st.text("  ")
+        st.text("  ")
 
 
 elif page == "À propos":
     st.header("À propos de DataPracticeHub")
     st.write("DataPracticeHub est conçu pour aider les passionnés de Data Science à apprendre en réalisant des projets pratiques.")
     st.write("Pour toute question, contactez-nous à [j.a.datatech.consulting@gmail.com](mailto:j.a.datatech.consulting@gmail.com)")
-
-# Afficher le détail ou l'exécution du projet
-if "page" in st.session_state:
-    if st.session_state.page in projects:
-        show_project_details(st.session_state.page)
-    elif st.session_state.page.startswith("solution_"):
-        project_name = st.session_state.page.replace("solution_", "")
-        if project_name in projects:
-            show_project_execution(project_name)
