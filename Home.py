@@ -91,22 +91,26 @@ if page == "Accueil":
     # st.write("DataPracticeHub est un répertoire de projets réels en Data Science pour vous aider à apprendre par la pratique.")
     st.write("Choisissez un projet ci-dessous pour commencer :")
 
-    for project_name, project in projects.items():
-        with st.expander(f"Projet : {project_name}", expanded=True):
-            st.subheader(f"**{project_name}**")
-            if project["image"]:
-                st.image(project["image"])
-            st.write(project["description"])
+    cols = st.columns(2)
 
-            if st.button("Guide", key=f"details_{project_name}"):
-                st.session_state.page = project_name
-                show_project_details(project_name)
-                    
-            if st.button("Solution", key=f"solution_{project_name}"):
-                st.session_state.page = f"solution_{project_name}"
-                show_project_execution(project_name)
-        st.text("  ")
-        st.text("  ")
+    #for project_name, project in projects.items():
+    for i, (project_name, project) in enumerate(projects.items()):
+        with cols[i % 2]:
+            with st.expander(f"Projet : {project_name}", expanded=False):
+                st.subheader(f"**{project_name}**")
+                if project["image"]:
+                    st.image(project["image"])
+                st.write(project["description"])
+
+                if st.button("Guide", key=f"details_{project_name}"):
+                    st.session_state.page = project_name
+                    show_project_details(project_name)
+                        
+                if st.button("Solution", key=f"solution_{project_name}"):
+                    st.session_state.page = f"solution_{project_name}"
+                    show_project_execution(project_name)
+            st.text("  ")
+            st.text("  ")
 
 
 elif page == "À propos":
