@@ -1,5 +1,5 @@
 import streamlit as st
-#from st_paywall import add_auth
+from st_paywall import add_auth
 from PIL import Image
 import os
 from utils import load_projects
@@ -58,7 +58,7 @@ if os.path.exists(logo_path) and os.path.exists(animation_path):
 st.header("Bienvenue sur DataPracticeHub")
 st.write("DataPracticeHub est un répertoire de projets réels en Data Science pour vous aider à apprendre par la pratique.")
 
-#add_auth(required=True)
+add_auth(required=True)
 
 # Sidebar pour la navigation
 st.sidebar.title("Navigation")
