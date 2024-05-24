@@ -82,7 +82,7 @@ st.write("DataPracticeHub est un répertoire de projets réels en Data Science p
 #add_auth(required=True)
 
 # Sidebar pour la navigation
-st.title("Navigation")
+st.title("Menu")
 pages = ["Accueil", "À propos"]
 page = st.radio("Aller à", pages, horizontal=True)
 
