@@ -2,7 +2,16 @@ import streamlit as st
 #from st_paywall import add_auth
 from PIL import Image
 import os
-from utils import load_projects
+from utils import load_projects, fetch_image_from_github, get_image_download_url, fetch_gif_from_github
+
+# Configuration GitHub
+GITHUB_API_URL = "https://api.github.com"
+USERNAME = "joshafouda"
+REPO_NAME = "DataPracticeHub-App-Resources"
+GITHUB_TOKEN = "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"
+GITHUB_REPO_IMGS = f"https://api.github.com/repos/{USERNAME}/{REPO_NAME}/contents/imgs"
+
+headers = {"Authorization": f"token {GITHUB_TOKEN}"}
 
 # Charger les projets depuis le répertoire 'projects'
 projects = load_projects()
@@ -42,18 +51,30 @@ st.markdown("""
 # Titre de la page
 #st.title("DataPracticeHub\nMade by Josué AFOUDA")
 
-# Vérifiez l'existence des fichiers
-logo_path = "imgs/logo.png"
-animation_path = "imgs/logo_animation.gif"
+# URLs des images dans le dépôt GitHub
+logo_image_url = f"{GITHUB_REPO_IMGS}/logo.png"
+logo_animation_url = f"{GITHUB_REPO_IMGS}/logo_animation.gif"
+
+# Obtenez les URL de téléchargement des images
+logo_image_download_url = get_image_download_url(logo_image_url)
+logo_animation_download_url = get_image_download_url(logo_animation_url)
 
 # Utilisation de colonnes pour afficher les images côte à côte
-if os.path.exists(logo_path) and os.path.exists(animation_path):
-    col1, col2 = st.columns(2)
-    with col1:
-        logo_image = Image.open(logo_path)
-        st.image(logo_image, use_column_width=True)
-    with col2:
-        st.image(animation_path, use_column_width=True)
+if logo_image_download_url and logo_animation_download_url:
+    logo_image = fetch_image_from_github(logo_image_download_url)
+    logo_animation = fetch_gif_from_github(logo_animation_download_url)
+
+    if logo_image and logo_animation:
+        col1, col2 = st.columns(2)
+        with col1:
+            st.image(logo_image, use_column_width=True)
+        with col2:
+            st.image(logo_animation, use_column_width=True)
+    else:
+        st.write("Erreur lors du chargement des images")
+else:
+    st.write("Les URL de téléchargement des images n'ont pas pu être obtenues")
+
 
 st.header("Bienvenue sur DataPracticeHub")
 st.write("DataPracticeHub est un répertoire de projets réels en Data Science pour vous aider à apprendre par la pratique.")
