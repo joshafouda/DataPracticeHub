@@ -4,19 +4,15 @@ import markdown
 from collections import defaultdict
 from io import BytesIO
 from PIL import Image
-from dotenv import load_dotenv
 import re
 import os
 
-load_dotenv()
-
-# Maintenant, vous pouvez accéder aux variables d'environnement normalement comme ceci :
-GITHUB_API_URL = os.getenv("GITHUB_API_URL")
-USERNAME = os.getenv("GITHUB_USERNAME")
-REPO_NAME = os.getenv("REPO_NAME")
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-GITHUB_REPO = os.getenv("GITHUB_REPO")
-GITHUB_REPO_IMGS = os.getenv("GITHUB_REPO_IMGS")
+GITHUB_API_URL = "https://api.github.com"
+GITHUB_USERNAME = "joshafouda"
+REPO_NAME = "DataPracticeHub-App-Resources"
+GITHUB_TOKEN = "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"
+GITHUB_REPO = "https://api.github.com/repos/joshafouda/DataPracticeHub-App-Resources/contents/projects"
+GITHUB_REPO_IMGS = "https://api.github.com/repos/joshafouda/DataPracticeHub-App-Resources/contents/imgs"
 
 headers = {
     "Authorization": f"token {GITHUB_TOKEN}"
@@ -49,7 +45,7 @@ def load_projects():
                 image_file_name = sections["Image"].strip()
                 https_link = re.search(r'\bhttps?://\S+\b', image_file_name).group()
                 after_imgs = https_link.split('imgs/')[1]
-                url_image = f"{GITHUB_API_URL}/repos/{USERNAME}/{REPO_NAME}/contents/imgs/{after_imgs}"
+                url_image = f"{GITHUB_API_URL}/repos/{GITHUB_USERNAME}/{REPO_NAME}/contents/imgs/{after_imgs}"
                 last_slash_index = url_image.rfind('/') # Trouver l'index de la dernière occurrence du caractère '/'
                 url_image_modified = url_image[:last_slash_index]  # Extraire la partie de la chaîne jusqu'à cet index
                 response_img = requests.get(url_image_modified, headers=headers)
