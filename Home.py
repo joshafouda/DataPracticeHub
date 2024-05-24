@@ -2,21 +2,7 @@ import streamlit as st
 #from st_paywall import add_auth
 from PIL import Image
 import os
-from dotenv import load_dotenv
-from utils import load_projects, fetch_image_from_github, get_image_download_url, fetch_gif_from_github
-
-# Charger les variables d'environnement depuis le fichier .env
-load_dotenv()
-
-# Maintenant, vous pouvez accéder aux variables d'environnement normalement comme ceci :
-GITHUB_API_URL = os.getenv("GITHUB_API_URL")
-GITHUB_USERNAME = os.getenv("GITHUB_USERNAME")
-REPO_NAME = os.getenv("REPO_NAME")
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-GITHUB_REPO = os.getenv("GITHUB_REPO")
-GITHUB_REPO_IMGS = os.getenv("GITHUB_REPO_IMGS")
-
-headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+from utils import load_projects
 
 # Charger les projets depuis le répertoire 'projects'
 projects = load_projects()
@@ -56,30 +42,18 @@ st.markdown("""
 # Titre de la page
 #st.title("DataPracticeHub\nMade by Josué AFOUDA")
 
-# URLs des images dans le dépôt GitHub
-logo_image_url = f"{GITHUB_REPO_IMGS}/logo.png"
-logo_animation_url = f"{GITHUB_REPO_IMGS}/logo_animation.gif"
-
-# Obtenez les URL de téléchargement des images
-logo_image_download_url = get_image_download_url(logo_image_url)
-logo_animation_download_url = get_image_download_url(logo_animation_url)
+# Vérifiez l'existence des fichiers
+logo_path = "imgs/logo.png"
+animation_path = "imgs/logo_animation.gif"
 
 # Utilisation de colonnes pour afficher les images côte à côte
-if logo_image_download_url and logo_animation_download_url:
-    logo_image = fetch_image_from_github(logo_image_download_url)
-    logo_animation = fetch_gif_from_github(logo_animation_download_url)
-
-    if logo_image and logo_animation:
-        col1, col2 = st.columns(2)
-        with col1:
-            st.image(logo_image, use_column_width=True)
-        with col2:
-            st.image(logo_animation, use_column_width=True)
-    else:
-        st.write("Erreur lors du chargement des images")
-else:
-    st.write("Les URL de téléchargement des images n'ont pas pu être obtenues")
-
+if os.path.exists(logo_path) and os.path.exists(animation_path):
+    col1, col2 = st.columns(2)
+    with col1:
+        logo_image = Image.open(logo_path)
+        st.image(logo_image, use_column_width=True)
+    with col2:
+        st.image(animation_path, use_column_width=True)
 
 st.header("Bienvenue sur DataPracticeHub")
 st.write("DataPracticeHub est un répertoire de projets réels en Data Science pour vous aider à apprendre par la pratique.")
@@ -87,7 +61,7 @@ st.write("DataPracticeHub est un répertoire de projets réels en Data Science p
 #add_auth(required=True)
 
 # Sidebar pour la navigation
-st.title("Menu")
+st.title("Navigation")
 pages = ["Accueil", "À propos"]
 page = st.radio("Aller à", pages, horizontal=True)
 
