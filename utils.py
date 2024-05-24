@@ -6,13 +6,18 @@ from io import BytesIO
 from PIL import Image
 import re
 import os
+from dotenv import load_dotenv
 
-GITHUB_API_URL = "https://api.github.com"
-GITHUB_USERNAME = "joshafouda"
-REPO_NAME = "DataPracticeHub-App-Resources"
-GITHUB_TOKEN = "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"
-GITHUB_REPO = "https://api.github.com/repos/joshafouda/DataPracticeHub-App-Resources/contents/projects"
-GITHUB_REPO_IMGS = "https://api.github.com/repos/joshafouda/DataPracticeHub-App-Resources/contents/imgs"
+# Charger les variables d'environnement depuis le fichier .env
+load_dotenv()
+
+# Maintenant, vous pouvez accéder aux variables d'environnement normalement comme ceci :
+GITHUB_API_URL = os.getenv("GITHUB_API_URL")
+GITHUB_USERNAME = os.getenv("GITHUB_USERNAME")
+REPO_NAME = os.getenv("REPO_NAME")
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_REPO = os.getenv("GITHUB_REPO")
+GITHUB_REPO_IMGS = os.getenv("GITHUB_REPO_IMGS")
 
 headers = {
     "Authorization": f"token {GITHUB_TOKEN}"
