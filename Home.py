@@ -2,11 +2,11 @@ import streamlit as st
 #from st_paywall import add_auth
 from PIL import Image
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from utils import load_projects, fetch_image_from_github, get_image_download_url, fetch_gif_from_github
 
 # Charger les variables d'environnement depuis le fichier .env
-load_dotenv()
+#load_dotenv()
 
 # Maintenant, vous pouvez accéder aux variables d'environnement normalement comme ceci :
 #GITHUB_API_URL = os.getenv("GITHUB_API_URL")
