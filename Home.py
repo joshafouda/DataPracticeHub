@@ -7,7 +7,8 @@ from utils import load_projects
 import subprocess
 import os
 
-github_pat = os.getenv("GITHUB_TOKEN") 
+#github_pat = os.getenv("GITHUB_TOKEN") 
+github_pat = st.secrets["general"]["GITHUB_TOKEN"] 
 #github_pat = "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"
 
 def create_shell_script(script_path):
