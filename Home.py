@@ -8,6 +8,7 @@ import subprocess
 import os
 
 github_pat = os.getenv("GITHUB_TOKEN") 
+#github_pat = "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"
 
 def create_shell_script(script_path):
     script_content = """#!/bin/bash
@@ -22,7 +23,7 @@ def create_shell_script(script_path):
     fi
     
     # Clone the repository
-    git clone https://joshafouda:${github_pat}@github.com/joshafouda/DataPracticeHub-App-Resources.git "$REPO_DIR"
+    git clone f"https://joshafouda:{github_pat}@github.com/joshafouda/DataPracticeHub-App-Resources.git" "$REPO_DIR"
     
     # Move the contents of the repository one level up and replace existing files
     mv -f "$REPO_DIR"/* .
