@@ -4,6 +4,49 @@ from PIL import Image
 import os
 from utils import load_projects
 
+import subprocess
+import os
+
+github_pat = os.getenv("GITHUB_TOKEN") 
+
+def create_shell_script(script_path):
+    script_content = """#!/bin/bash
+    REPO_DIR="repository"
+    
+    # Create the repository directory if it doesn't exist
+    mkdir -p "$REPO_DIR"
+    
+    # Remove the repository directory if it exists
+    if [ -d "$REPO_DIR" ]; then
+        rm -rf "$REPO_DIR"
+    fi
+    
+    # Clone the repository
+    git clone https://joshafouda:${github_pat}@github.com/joshafouda/DataPracticeHub-App-Resources.git "$REPO_DIR"
+    
+    # Move the contents of the repository one level up and replace existing files
+    mv -f "$REPO_DIR"/* .
+    mv -f "$REPO_DIR"/.[^.]* .
+    
+    # Remove the repository directory
+    rm -rf "$REPO_DIR"
+    """
+    with open(script_path, 'w') as file:
+        file.write(script_content)
+    os.chmod(script_path, 0o755)  # Make the script executable
+
+def run_shell_script(script_path):
+    subprocess.run([script_path], capture_output=True, text=True)
+
+# Path to your shell script
+script_path = './clone_repo.sh'
+
+# Create the shell script
+create_shell_script(script_path)
+
+# Run the script to clone the repository, forcing replacement if it exists
+run_shell_script(script_path)
+
 # Charger les projets depuis le répertoire 'projects'
 projects = load_projects()
 
