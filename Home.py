@@ -112,7 +112,7 @@ st.write("DataPracticeHub est un répertoire de projets réels en Data Science p
 # Sidebar pour la navigation
 st.title("Menu")
 pages = ["Accueil", "À propos"]
-page = st.radio("Aller à", pages, horizontal=True)
+page = st.radio("Aller à :", pages, horizontal=True)
 
 # Fonction pour afficher les détails d'un projet
 def show_project_details(project_name):
