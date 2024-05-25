@@ -3,14 +3,11 @@ import streamlit as st
 from PIL import Image
 import os
 from utils import load_projects
-import time
-
 import subprocess
-import os
+
 
 # Récupérer le token d'accès personnel depuis les secrets de Streamlit
 github_pat = st.secrets["general"]["GITHUB_TOKEN"]
-#github_pat = "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"
 
 # Définir le contenu du script shell
 script_content = f"""#!/bin/bash
@@ -44,14 +41,9 @@ def run_shell_script(script_content):
     subprocess.run(['bash', '-c', script_content], capture_output=True, text=True)
     
     
-
 # Exécuter le script pour cloner le dépôt, forçant le remplacement si nécessaire
 run_shell_script(script_content)
 
-#st.title("Application Streamlit")
-#st.write("Le dépôt a été mis à jour avec succès.")
-
-#time.sleep(10)
 
 # Charger les projets depuis le répertoire 'projects'
 projects = load_projects()
