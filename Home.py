@@ -7,7 +7,8 @@ import subprocess
 
 
 # Récupérer le token d'accès personnel depuis les secrets de Streamlit
-github_pat = st.secrets["general"]["GITHUB_TOKEN"]
+#github_pat = st.secrets["general"]["GITHUB_TOKEN"]
+github_pat = st.secrets["GITHUB_TOKEN"]
 
 # Définir le contenu du script shell
 script_content = f"""#!/bin/bash
