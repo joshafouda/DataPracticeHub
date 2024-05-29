@@ -5,4 +5,4 @@ pandas==2.2.2
 streamlit==1.34.0
 st-paywall==0.1.8
 requests==2.31.0
-streamlit-player-0.1.5
+streamlit-player==0.1.5
