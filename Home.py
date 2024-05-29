@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_player import st_player
 from st_paywall import add_auth
 from PIL import Image
 import os
@@ -99,6 +100,16 @@ if os.path.exists(logo_path) and os.path.exists(animation_path):
 
 st.header("Bienvenue sur DataPracticeHub")
 st.write("DataPracticeHub est un répertoire de projets réels en Data Science pour vous aider à apprendre par la pratique.")
+
+# Sous-titre
+st.subheader("Découvrez notre plateforme avec cette vidéo de présentation")
+
+# URL de la vidéo YouTube
+html_video = '''<iframe width="560" height="315" src="https://www.youtube.com/embed/SpXPIb6Jkfo?si=u9tajJf7jeHJVj6m" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'''
+
+
+# Affichage de la vidéo
+st_player(html_video)
 
 add_auth(required=True)
 
