@@ -1,6 +1,8 @@
 import os
 import markdown
 from collections import defaultdict
+import streamlit as st
+import base64
 
 # Fonction qui prend en argument un fichier .md et retourne le contenu complet de ce fichier .md sous forme de chaîne de caractères
 def read_md_file(file_path):
@@ -89,3 +91,9 @@ def load_projects(directory="projects"):
                 "execution": extract_execution_section(texte)
             }
     return projects
+
+
+# Fonction pour lire la description d'un livre à partir d'un fichier Markdown
+def read_description(description_file):
+    with open(description_file, 'r', encoding='utf-8') as file:
+        return file.read()

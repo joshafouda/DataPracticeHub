@@ -3,8 +3,13 @@ from streamlit_player import st_player
 from st_paywall import add_auth
 from PIL import Image
 import os
-from utils import load_projects
+from utils import load_projects, read_description
 import subprocess
+
+from pathlib import Path
+
+from streamlit import session_state as ss
+from streamlit_pdf_viewer import pdf_viewer
 
 
 # Récupérer le token d'accès personnel depuis les secrets de Streamlit
@@ -101,21 +106,10 @@ if os.path.exists(logo_path) and os.path.exists(animation_path):
 st.header("Bienvenue sur DataPracticeHub")
 st.write("DataPracticeHub est un répertoire de projets réels en Data Science pour vous aider à apprendre par la pratique.")
 
-# Sous-titre
-st.subheader("Découvrez notre plateforme avec cette vidéo de présentation")
-
-# URL de la vidéo YouTube
-html_video = '''<iframe width="560" height="315" src="https://www.youtube.com/embed/SpXPIb6Jkfo?si=u9tajJf7jeHJVj6m" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'''
-
-
-# Affichage de la vidéo
-st_player(html_video)
-
-add_auth(required=True)
 
 # Sidebar pour la navigation
 st.title("Menu")
-pages = ["Accueil", "À propos"]
+pages = ["Accueil", "À propos", "Projets", "Livres"]
 page = st.radio("Aller à :", pages, horizontal=True)
 
 # Fonction pour afficher les détails d'un projet
@@ -140,6 +134,25 @@ def show_project_execution(project_name):
     st.markdown(project["execution"], unsafe_allow_html=True)
 
 if page == "Accueil":
+    # Sous-titre
+    st.subheader("Découvrez notre plateforme avec cette vidéo de présentation")
+
+    # URL de la vidéo YouTube
+    html_video = '''<iframe width="560" height="315" src="https://www.youtube.com/embed/SpXPIb6Jkfo?si=u9tajJf7jeHJVj6m" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'''
+
+    # Affichage de la vidéo
+    st_player(html_video)
+
+
+elif page == "À propos":
+    st.header("À propos de DataPracticeHub")
+    st.write("DataPracticeHub est conçu pour aider les passionnés de Data Science à apprendre en réalisant des projets pratiques.")
+    st.write("Pour toute question, contactez-nous à [j.a.datatech.consulting@gmail.com](mailto:j.a.datatech.consulting@gmail.com)")
+
+
+add_auth(required=True)
+
+if page == "Projets":
     # st.header("Bienvenue sur DataPracticeHub")
     # st.write("DataPracticeHub est un répertoire de projets réels en Data Science pour vous aider à apprendre par la pratique.")
     st.write("Choisissez un projet ci-dessous pour commencer :")
@@ -149,7 +162,7 @@ if page == "Accueil":
     #for project_name, project in projects.items():
     for i, (project_name, project) in enumerate(projects.items()):
         with cols[i % 2]:
-            with st.expander(f"Projet : {project_name}", expanded=False):
+            with st.expander(f"Projet : {project_name}", expanded=True):
                 st.subheader(f"**{project_name}**")
                 if project["image"]:
                     st.image(project["image"])
@@ -165,8 +178,51 @@ if page == "Accueil":
             st.text("  ")
             st.text("  ")
 
+elif page == "Livres":
 
-elif page == "À propos":
-    st.header("À propos de DataPracticeHub")
-    st.write("DataPracticeHub est conçu pour aider les passionnés de Data Science à apprendre en réalisant des projets pratiques.")
-    st.write("Pour toute question, contactez-nous à [j.a.datatech.consulting@gmail.com](mailto:j.a.datatech.consulting@gmail.com)")
+    # Répertoire contenant les livres
+    books_directory = Path('books')
+
+    # Liste des fichiers PDF et des images de couverture
+    books = [book for book in books_directory.glob('*.pdf')]
+
+    st.title('Bibliothèque PDF')
+
+    # Parcourir tous les livres
+    for book in books:
+        # Obtenir le nom de base du livre sans extension
+        book_name = book.stem
+
+        # Trouver l'image de couverture correspondante
+        cover_image = books_directory / f'{book_name}.png'
+        description_file = books_directory / f'{book_name}.md'
+        
+        # Lire la description
+        if description_file.exists():
+            description = read_description(description_file)
+        else:
+            description = "Description non disponible."
+
+        with st.expander(book_name, expanded=True):
+            col1, col2 = st.columns([1, 2])
+            
+            with col1:
+                if cover_image.exists():
+                    st.image(str(cover_image), use_column_width=True)
+                else:
+                    st.text("Image non disponible.")
+            
+            with col2:
+                st.markdown(description)
+                if st.button(f'Lire {book_name}'):
+                    if 'pdf_ref' not in ss:
+                        ss.pdf_ref = None
+                    
+                    with open(book, 'rb') as f:
+                        ss.pdf_ref = f.read() # Lire le fichier PDF
+
+                    # Afficher le PDF avec streamlit_pdf_viewer
+                    if ss.pdf_ref:
+                        pdf_viewer(input=ss.pdf_ref, width=1000)
+                #if st.button(f'Acheter {book_name}'):
+                    #st.write(f"[Lien d'achat](https://example.com/{book_name})")
