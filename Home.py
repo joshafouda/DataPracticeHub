@@ -133,6 +133,50 @@ def show_project_execution(project_name):
     #st.write(project["execution"])
     st.markdown(project["execution"], unsafe_allow_html=True)
 
+
+# Fonction pour afficher l'aperçu des projets
+def show_projects_preview():
+    for project_name, project in projects.items():
+        with st.expander(f"Projet : {project_name}", expanded=True):
+            st.subheader(f"**{project_name}**")
+            if project["image"]:
+                st.image(project["image"])
+            st.write(project["description"])
+            st.text("  ")
+            st.text("  ")
+
+
+# Fonction pour afficher l'aperçu des livres
+def show_books_preview():
+    books_directory = Path('books')
+    books = [book for book in books_directory.glob('*.pdf')]
+
+    for book in books:
+        book_name = book.stem
+        cover_image = books_directory / f'{book_name}.png'
+        description_file = books_directory / f'{book_name}.md'
+        
+        if description_file.exists():
+            description = read_description(description_file)
+        else:
+            description = "Description non disponible."
+        
+        with st.expander(book_name, expanded=True):
+            col1, col2 = st.columns([1, 2])
+            
+            with col1:
+                if cover_image.exists():
+                    st.image(str(cover_image), use_column_width=True)
+                else:
+                    st.text("Image non disponible.")
+            
+            with col2:
+                st.markdown(description)
+            st.text("  ")
+            st.text("  ")
+
+
+
 if page == "Accueil":
     # Sous-titre
     st.subheader("Découvrez notre plateforme avec cette vidéo de présentation")
@@ -144,10 +188,54 @@ if page == "Accueil":
     st_player(html_video)
 
 
+    # Explication du fonctionnement de l'application
+    st.markdown("""
+        # Guide d'Utilisation de DataPracticeHub
+
+        Bienvenue sur DataPracticeHub, votre plateforme pour apprendre la Data Science à travers des projets pratiques.
+
+        ## Fonctionnement de l'Application
+
+        ### Page "À propos"
+        La page "À propos" vous offre un aperçu des contenus disponibles sur notre plateforme :
+        - **Projets** : Vous y trouverez une liste de projets de Data Science. Chaque projet est décrit avec une image et un résumé.
+        - **Livres** : Vous y trouverez une collection de livres au format PDF sur divers sujets en Data Science. Chaque livre est accompagné d'une description et d'une image de couverture.
+
+        ### Page "Projets"
+        Pour accéder aux instructions complètes et aux solutions des projets, vous devez vous abonner. 
+        - **Guide** : Pour voir les détails du projet, y compris les instructions et les ressources nécessaires.
+        - **Solution** : Pour voir la solution complète du projet.
+
+        ### Page "Livres"
+        Pour lire les livres en entier, vous devez vous abonner. 
+        - **Lire** : Pour ouvrir et lire le livre sélectionné.
+
+        ## Pourquoi s'abonner ?
+        - **Accès complet** aux instructions et solutions des projets.
+        - **Lecture illimitée** des livres disponibles sur la plateforme.
+        - **Support** : Assistance par email pour toutes vos questions.
+
+        ## Comment s'abonner ?
+        - **Cliquez sur "Login with Google" et choisissez le compte Gmail avec lequel vous vous connectez**.         
+                     
+        - **Cliquez ensuite sur "Subsribe now!" et payez l'abonnement mensuel**."                 
+    
+        Une fois abonné, vous aurez un accès complet à toutes les fonctionnalités de DataPracticeHub.
+
+        Nous espérons que vous trouverez DataPracticeHub utile pour votre apprentissage en Data Science. N'hésitez pas à nous contacter pour toute question ou suggestion.
+    """)
+
+
 elif page == "À propos":
     st.header("À propos de DataPracticeHub")
     st.write("DataPracticeHub est conçu pour aider les passionnés de Data Science à apprendre en réalisant des projets pratiques.")
     st.write("Pour toute question, contactez-nous à [j.a.datatech.consulting@gmail.com](mailto:j.a.datatech.consulting@gmail.com)")
+
+    st.subheader("Aperçu des Projets")
+    show_projects_preview()
+
+    st.subheader("Aperçu des Livres")
+    show_books_preview()
 
 
 add_auth(required=True)
