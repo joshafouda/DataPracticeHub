@@ -109,7 +109,7 @@ st.write("DataPracticeHub est un répertoire de projets réels en Data Science p
 
 # Sidebar pour la navigation
 st.title("Menu")
-pages = ["Accueil", "À propos", "Projets", "Livres"]
+pages = ["Accueil", "À propos", "Formations", "Projets", "Livres"]
 page = st.radio("Aller à :", pages, horizontal=True)
 
 # Fonction pour afficher les détails d'un projet
@@ -236,6 +236,41 @@ elif page == "À propos":
 
     st.subheader("Aperçu des Livres")
     show_books_preview()
+
+
+# Page des formations
+elif page == "Formations":
+    st.header("Nos Formations")
+    
+    with st.expander("Voir les formations disponibles"):
+        # Ajouter une image
+        st.image("https://github.com/joshafouda/MesFormations/blob/main/assets/formation1.png?raw=true", use_column_width=True)
+        
+        # Ajouter les boutons
+        # Ajouter un bouton pour télécharger le programme au format PDF
+        pdf_link = "https://drive.google.com/file/d/1RgIwSptlp0iiwhmALUis3_PupNPmKOBt/view?usp=sharing"
+        if st.button('Téléchargez le Programme de Formation en PDF'):
+            st.markdown(f'<a href="{pdf_link}" download>Cliquez ici pour télécharger le Programme de la Formation</a>', unsafe_allow_html=True)
+
+        st.write(" ")
+
+        # Registration Form
+        st.subheader("Inscription à la formation")
+        registration_link = "https://forms.gle/oZsH5Er8923jHShWA"
+        if st.button("S'inscrire", key='inscription'):
+            new_tab = f'<a href="{registration_link}" target="_blank">Cliquez ici pour vous inscrire à la Formation</a>'
+            st.markdown(new_tab, unsafe_allow_html=True)
+
+
+        st.write(" ")
+
+        # Payment Button
+        st.subheader("Paiement des Frais de Formation")
+        payment_link = "https://buy.stripe.com/fZeaIGaVw4EG80w28u"
+        if st.button("Payez", key='payment'):
+            new_tab = f'<a href="{payment_link}" target="_blank">Cliquez ici pour payer votre participation</a>'
+            st.markdown(new_tab, unsafe_allow_html=True)
+
 
 
 add_auth(required=True)
