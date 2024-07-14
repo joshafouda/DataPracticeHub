@@ -242,7 +242,7 @@ elif page == "À propos":
 elif page == "Formations":
     st.header("Nos Formations")
     
-    with st.expander("Voir les formations disponibles"):
+    with st.expander("Voir les formations disponibles", expanded=True):
         # Ajouter une image
         st.image("https://github.com/joshafouda/MesFormations/blob/main/assets/formation1.png?raw=true", use_column_width=True)
         
